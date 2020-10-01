@@ -32,6 +32,8 @@ Also, please install the dependencies from requirements.txt
 
 ## Usage
 
+**Note:** For other language examples check [`examples`](https://github.com/R1j1t/contextualSpellCheck/tree/master/examples) folder. 
+
 ### How to load the package in spacy pipeline
 
 ```bash
@@ -40,7 +42,7 @@ Also, please install the dependencies from requirements.txt
 >>> 
 >>> ## We require NER to identify if it is PERSON
 >>> ## also require parser because we use Token.sent for context
->>> nlp = spacy.load("en_core_web_sm")
+>>> nlp = spacy.load("en_core_web_sm") 
 >>> 
 >>> contextualSpellCheck.add_to_pipe(nlp)
 <spacy.lang.en.English object at 0x12839a2d0>
@@ -116,13 +118,13 @@ To make the usage simpler spacy provides custom extensions which a library can u
 | doc._.performed_spellCheck | `Boolean` | To check whether contextualSpellCheck identified any misspells and performed correction | `False` |
 | doc._.suggestions_spellCheck | `{Spacy.Token:str}` | if corrections are performed, it returns the mapping of misspell token (`spaCy.Token`) with suggested word(`str`) | `{}` |
 | doc._.outcome_spellCheck | `str` | corrected sentence(`str`) as output | `""` |
-| doc._.score_spellCheck | `{Spacy.Token:List(str,float)}` | if corrections are performed, it returns the mapping of misspell token (`spaCy.Token`) with suggested words(`str`) and probability of that correction | `None` |
+| doc._.score_spellCheck | `{Spacy.Token:List(str,float)}` | if corrections are identified, it returns the mapping of misspell token (`spaCy.Token`) with suggested words(`str`) and probability of that correction | `None` |
 
 ### `spaCy.Span` level extensions
 | Extension | Type | Description | Default |
 |-------------------------------|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | span._.get_has_spellCheck | `Boolean` | To check whether contextualSpellCheck identified any misspells and performed correction in this span | `False` |
-| span._.score_spellCheck | `{Spacy.Token:List(str,float)}` | if corrections are performed, it returns the mapping of misspell token (`spaCy.Token`) with suggested words(`str`) and probability of that correction for tokens in this `span` | `{spaCy.Token: []}` |
+| span._.score_spellCheck | `{Spacy.Token:List(str,float)}` | if corrections are identified, it returns the mapping of misspell token (`spaCy.Token`) with suggested words(`str`) and probability of that correction for tokens in this `span` | `{spaCy.Token: []}` |
 
 ### `spaCy.Token` level extensions
 
@@ -130,7 +132,7 @@ To make the usage simpler spacy provides custom extensions which a library can u
 |-----------------------------------|-----------------|-------------------------------------------------------------------------------------------------------------|---------|
 | token._.get_require_spellCheck | `Boolean` | To check whether contextualSpellCheck identified any misspells and performed correction on this `token` | `False` |
 | token._.get_suggestion_spellCheck | `str` | if corrections are performed, it returns the suggested word(`str`) | `""` |
-| token._.score_spellCheck | `[(str,float)]` | if corrections are performed, it returns suggested words(`str`) and probability(`float`) of that correction | `[]` |
+| token._.score_spellCheck | `[(str,float)]` | if corrections are identified, it returns suggested words(`str`) and probability(`float`) of that correction | `[]` |
 
 ## API
 
@@ -180,13 +182,15 @@ Response:
 ## Task List
 
 - [ ] Add support for Real Word Error (RWE) (Big Task)
-- [ ] specify maximum edit distance for `candidateRanking`
-- [ ] allow user to specify bert model
+- [x] specify maximum edit distance for `candidateRanking`
+- [x] allow user to specify bert model
 - [ ] edit distance code optimisation
 - [ ] add multi mask out capability
 - [ ] better candidate generation (maybe by fine tuning the model?)
 - [ ] add metric by testing on datasets
 - [ ] Improve documentation
+- [ ] Add examples for other langauges
+- [ ] use piece wise tokeniser when identifying the misspell
 
 ## Support and contribution
 
